@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} Category list {% endblock %}
+
+{% block content %}
+    <h1>Category page</h1>
+    <hr>
+    {% for c in category_list %}
+        <h3><a href="{% url 'category_blog' c.slug %}">{{ c.name }}</a> ({{ c.blog.count }})</h3>
+        <p>User count: {{ c.user.count }}</p>
+        <img style="width: 200px;" src="{{ c.image.url }}" alt="Bu rasm">
+        <p>{{ c.description|truncatechars_html:100|safe }}</p>
+        {% if request.user in c.user.all %}
+            <a class="btn btn-danger" href="{% url 'category_add_user' c.slug %}">Tark etish</a>
+            <a class="btn btn-primary" href="{% url 'create' %}">Add blog</a>
+        {% else %}
+            <a class="btn btn-success" href="{% url 'category_add_user' c.slug %}">A'zo bo'lish</a>
+        {% endif %}
+        <hr>
+    {% endfor %}
+{% endblock %}

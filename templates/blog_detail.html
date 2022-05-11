@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ blog.title }} {% endblock %}
+
+{% block content %}
+    <h1>{{ blog.title }} page</h1>
+    <hr>
+    <h2>{{ blog.title }}</h2>
+    <p><a href="#">{{ blog.category.name }}</a>
+        Sana: {{ blog.created | date:'Y-m-d // h:i' }}</p>
+    <img style="width: 400px;" src="{{ blog.image.url }}" alt="Bu rasm">
+    <p>{{ blog.description|safe }}</p>
+    <p>User: {{ blog.user.username }}</p>
+    <p>Ko'rishlar soni: {{ blog.views }}</p>
+    {% for tag in blog.tags.all %}
+        <a href="{% url 'tag_blog' tag.slug %}">#{{ tag.name }} </a>
+    {% endfor %}
+    <hr>
+    <a href="{% url 'update' blog.slug %}" class="btn btn-success">Update</a>
+    <a href="{% url 'delete' blog.id %}" class="btn btn-danger">Delete</a>
+    <hr>
+    <div class="row">
+        <div class="product col-lg-6">
+            {% for comment in blog.comment.all %}
+                <p>User: {{ comment.user.username }}</p>
+                <p>Date: {{ comment.created }}</p>
+                <p> {{ comment.text }}</p>
+
+                <hr>
+            {% endfor %}
+        </div>
+        <div class="col-lg-6">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

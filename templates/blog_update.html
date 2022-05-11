@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Blog update {% endblock %}
+
+{% block content %}
+   <h1>Blog update page</h1>
+    <hr>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <label>Tag maydon</label>
+        <input name="tags" value="{{ str1 }}">
+    <button type="submit" class="btn btn-success">Update</button>
+    </form>
+{% endblock %}

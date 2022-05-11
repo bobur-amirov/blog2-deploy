@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} User list {% endblock %}
+
+{% block content %}
+    <h1>User page</h1>
+    <hr>
+    <form class="d-flex">
+        <input name="search" class="form-control me-2" type="search" placeholder="Username or Email Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+    <hr>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">username</th>
+            <th scope="col">email</th>
+            <th scope="col">Date join</th>
+            <th scope="col">Last Login</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.date_joined }}</td>
+                <td>{{ user.last_login }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

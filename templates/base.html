@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %} {% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{#    <link rel="stylesheet" href="{% static 'css/style.css' %}">#}
+    <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    {% include 'header.html' %}
+    <div class="row">
+        <div class="col-lg-8">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <div class="col-lg-4">
+            <h1>Categories All</h1>
+            <hr>
+            {% for c in categories %}
+                <p><a href="{% url 'category_blog' c.slug %}">{{ c.name }}</a></p>
+            {% endfor %}
+
+            <hr>
+            <h1>Tags All</h1>
+            <hr>
+            {% for tag in tags %}
+                <a href="{% url 'tag_blog' tag.slug %}">#{{ tag.name }} </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<footer>
+    Footer
+</footer>
+
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>

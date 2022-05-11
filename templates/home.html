@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+    <h1>Home page</h1>
+    <hr>
+   <form class="d-flex">
+        <input name="search" class="form-control me-2" type="search" placeholder="Blog title Search" aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+    <hr>
+    {% for blog in blogs %}
+        <h3><a href="{% url 'blog' blog.slug %}">{{ blog.title }}</a></h3>
+        <p><a href="#">{{ blog.category.name }}</a>
+            Sana: {{ blog.created | date:'Y-m-d // h:i' }}</p>
+        <img style="width: 400px;" src="{{ blog.image.url }}" alt="Bu rasm">
+        <p>{{ blog.description|truncatechars_html:100|safe }}</p>
+        <p>User: {{ blog.user.username }}</p>
+        <p>Ko'rishlar soni: {{ blog.views }}</p>
+        {% for tag in blog.tags.all %}
+            <a href="#">#{{ tag.name }} </a>
+        {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}
